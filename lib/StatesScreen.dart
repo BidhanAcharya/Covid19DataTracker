@@ -5,6 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 
+import 'Countries_List.dart';
+
 class StatesScreen extends StatefulWidget {
   const StatesScreen({super.key});
 
@@ -93,15 +95,24 @@ class _StatesScreenState extends State<StatesScreen> with  TickerProviderStateMi
                           ),
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Color(0xff1aa260),
-                            borderRadius: BorderRadius.circular(12)
-                        ),
-                        child: Center(
-                          child: Text('Track Countries'),
-                        ),
+                      GestureDetector(
+                          onTap:(){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> CountriesList()),);
+
+                    },
+                    child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                    color: Color(0xff1aa260),
+                    borderRadius: BorderRadius.circular(12)
+                    ),
+                    child: Center(
+                    child: Text('Track Countries'),
+                    ),
+                    ),
+
+
+
                       )
 
 
