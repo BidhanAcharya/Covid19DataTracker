@@ -12,16 +12,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixin {
+  //Animation is defined in TickeyProviderState Mixing
+  //Thre must be controller for animation
   late final AnimationController _controller=AnimationController(duration:const Duration(seconds: 8) ,vsync: this)..repeat();
   @override
+  // init is the state that only display once before build
  void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds:8),()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> StatesScreen() )));
+    // splash screen Timer
+    Timer(Duration(seconds:8),()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> StatesScreen() )));// after splash screen move to StateScreen
   }
 
 
   @override
+  //once the display is ut it gets disposedd
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -42,6 +47,8 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
               child: Image(image:  AssetImage('assets/corona.png'),),
             ),
           ),
+            //It returns widget
+            //math function must be imported dart: math
             animation: _controller, builder: (BuildContext context, Widget? child){
               return Transform.rotate(angle:_controller.value * 2.0 * math.pi , child: child,);
         }),
