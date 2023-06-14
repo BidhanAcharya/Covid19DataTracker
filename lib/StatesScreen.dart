@@ -88,7 +88,7 @@ class _StatesScreenState extends State<StatesScreen> with  TickerProviderStateMi
                               ReusuableRow(title: 'Deaths',value: snapshot.data!.deaths.toString(),),
                               ReusuableRow(title: 'Recovered',value: snapshot.data!.recovered.toString(),),
                               ReusuableRow(title: "Today's Cases",value: snapshot.data!.todayCases.toString(),),
-                              ReusuableRow(title: "Today's Death",value: snapshot.data!.todayCases.toString(),),
+                              ReusuableRow(title: "Today's Death",value: snapshot.data!.todayDeaths.toString(),),
                               ReusuableRow(title: "Test Per Million",value: snapshot.data!.testsPerOneMillion.toString(),),
 
                             ],
