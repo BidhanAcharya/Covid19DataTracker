@@ -5,7 +5,7 @@ import 'package:shimmer/shimmer.dart';
 import 'details_screen.dart';
 
 class CountriesList extends StatefulWidget {
-   CountriesList({super.key});
+    const CountriesList({super.key});
 
   @override
   State<CountriesList> createState() => _CountriesListState();
@@ -19,7 +19,7 @@ class _CountriesListState extends State<CountriesList> {
   StatesServices statesServices=StatesServices();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.brown,
+
       ),
       body: Column(
         children: [
@@ -80,7 +80,6 @@ class _CountriesListState extends State<CountriesList> {
 
                    });
                 }else{
-                  print(snapshot.data);
                   return ListView.builder(
                       itemCount:snapshot.data!.length ,
                       itemBuilder: (context, index){
@@ -93,17 +92,17 @@ class _CountriesListState extends State<CountriesList> {
                                 onTap:(){
                                   print(snapshot.data);
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailScreen(
-
-                                    name:snapshot.data!['country'] ,
-                                    image: snapshot.data!['countryInfo']['flag'],
-                                    totalCases: snapshot.data!['cases'],
-                                    critical: snapshot.data!['critical'],
-                                    todayRecovered: snapshot.data!['todayRecovered'],
-                                    active: snapshot.data!['active'],
-                                    test: snapshot.data!['tests'],
-                                    totalDeaths: snapshot.data!['deaths'],
-                                    totalRecovered: snapshot.data!['recovered'],
-                                    continent: snapshot.data!['continent'],
+                                    //since this api json is  in list so index is given https://disease.sh/v3/covid-19/countries
+                                    name:snapshot.data![index]['country'] ,
+                                   image: snapshot.data![index]['countryInfo']['flag'],
+                                    totalCases: snapshot.data![index]['cases'],
+                                    critical: snapshot.data![index]['critical'],
+                                    todayRecovered: snapshot.data![index]['todayRecovered'],
+                                    active: snapshot.data![index]['active'],
+                                    test: snapshot.data![index]['tests'],
+                                    totalDeaths: snapshot.data![index]['deaths'],
+                                    totalRecovered: snapshot.data![index]['recovered'],
+                                    continent: snapshot.data![index]['continent'],
 
 
 
@@ -114,7 +113,7 @@ class _CountriesListState extends State<CountriesList> {
                                 },
                                 child: ListTile(
                                   title: Text(snapshot.data![index]['country']),
-                                  subtitle: Text(snapshot.data![index]['cases'].toString()),
+
                                   leading: Image(
                                     height: 50,
                                     width: 50,
@@ -130,17 +129,47 @@ class _CountriesListState extends State<CountriesList> {
                           return Column(
 
                             children: [
-                              ListTile(
-                                title: Text(snapshot.data![index]['country']),
-                                subtitle: Text(snapshot.data![index]['cases'].toString()),
-                                leading: Image(
-                                  height: 50,
-                                  width: 50,
-                                  image: NetworkImage(
-                                      snapshot.data![index]['countryInfo']['flag']
+                              InkWell(
+                                onTap: (){
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailScreen(
+                                    //since this api json is  in list so index is given https://disease.sh/v3/covid-19/countries
+                                    name:snapshot.data![index]['country'] ,
+                                    image: snapshot.data![index]['countryInfo']['flag'],
+                                    totalCases: snapshot.data![index]['cases'],
+                                    critical: snapshot.data![index]['critical'],
+                                    todayRecovered: snapshot.data![index]['todayRecovered'],
+                                    active: snapshot.data![index]['active'],
+                                    test: snapshot.data![index]['tests'],
+                                    totalDeaths: snapshot.data![index]['deaths'],
+                                    totalRecovered: snapshot.data![index]['recovered'],
+                                    continent: snapshot.data![index]['continent'],
+
+
+
+
+
+                                  )));
+
+
+
+
+
+                                },
+                                child:  ListTile(
+                                  title: Text(snapshot.data![index]['country']),
+
+                                  leading: Image(
+                                    height: 50,
+                                    width: 50,
+                                    image: NetworkImage(
+                                        snapshot.data![index]['countryInfo']['flag']
+                                    ),
                                   ),
                                 ),
+
                               )
+
                             ],
                           );
                         }else {

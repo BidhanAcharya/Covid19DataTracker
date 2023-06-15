@@ -34,6 +34,7 @@ class _StatesScreenState extends State<StatesScreen> with  TickerProviderStateMi
     return Scaffold(
       appBar: AppBar(
         title: Text('Covid-19'),
+
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
@@ -42,7 +43,7 @@ class _StatesScreenState extends State<StatesScreen> with  TickerProviderStateMi
           padding:  EdgeInsets.all(10.0),
           child: Column(
             children: [
-            SizedBox(height: 10,),
+
               FutureBuilder(
                   future: statesServices.fetchWorldStates(),
                   // snapshot  returns the data that is return by future function here futurefunction is fetchWorldStates()
@@ -50,7 +51,7 @@ class _StatesScreenState extends State<StatesScreen> with  TickerProviderStateMi
 
                 if(!snapshot.hasData){
                   return Expanded(child: SpinKitCircle(
-                    color: Colors.black45,
+                    color: Colors.white12,
                     controller: _controller,
                     size: 70.0,
                   ));
@@ -69,7 +70,7 @@ class _StatesScreenState extends State<StatesScreen> with  TickerProviderStateMi
                         chartValuesOptions: ChartValuesOptions(
                           showChartValuesInPercentage: true,
                         ),
-                        chartRadius: MediaQuery.of(context).size.width/3.2,
+                        chartRadius: MediaQuery.of(context).size.width/3,
                         legendOptions:const  LegendOptions(
 
                           legendPosition: LegendPosition.left,
@@ -79,41 +80,49 @@ class _StatesScreenState extends State<StatesScreen> with  TickerProviderStateMi
                         colorList: colorsList,
 
                       ),
-                      Padding(
-                        padding:EdgeInsets.fromLTRB(15, 20, 15, 35),
-                        child: Card(
-                          child: Column(
-                            children: [
-                              ReusuableRow(title: 'Total',value: snapshot.data!.cases.toString(),),
-                              ReusuableRow(title: 'Deaths',value: snapshot.data!.deaths.toString(),),
-                              ReusuableRow(title: 'Recovered',value: snapshot.data!.recovered.toString(),),
-                              ReusuableRow(title: "Today's Cases",value: snapshot.data!.todayCases.toString(),),
-                              ReusuableRow(title: "Today's Death",value: snapshot.data!.todayDeaths.toString(),),
-                              ReusuableRow(title: "Test Per Million",value: snapshot.data!.testsPerOneMillion.toString(),),
+                      SingleChildScrollView(
+                        child: Padding(
+                          padding:EdgeInsets.fromLTRB(15, 20, 15, 5),
+                          child: Card(
+                            child: Column(
+                              children: [
+                                //since this api json is not in list so index isn;t given  and it has a single object https://disease.sh/v3/covid-19/all
+                                ReusuableRow(title: 'Total',value: snapshot.data!.cases.toString(),),
+                                ReusuableRow(title: 'Deaths',value: snapshot.data!.deaths.toString(),),
+                                ReusuableRow(title: 'Recovered',value: snapshot.data!.recovered.toString(),),
+                                ReusuableRow(title: "Today's Cases",value: snapshot.data!.todayCases.toString(),),
+                                ReusuableRow(title: "Today's Death",value: snapshot.data!.todayDeaths.toString(),),
+                                ReusuableRow(title: "Test Per Million",value: snapshot.data!.testsPerOneMillion.toString(),),
+                                ReusuableRow(title: "Affected Countries",value: snapshot.data!.affectedCountries.toString(),),
+                                GestureDetector(
+                                  onTap:(){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> CountriesList()),);
 
-                            ],
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xff1aa260),
+                                        borderRadius: BorderRadius.circular(12)
+                                    ),
+                                    child: Center(
+                                      child: Text('Track Countries'),
+                                    ),
+                                  ),
+
+
+
+                                ),
+
+
+
+                              ],
+                            ),
+
                           ),
                         ),
                       ),
-                      GestureDetector(
-                          onTap:(){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> CountriesList()),);
 
-                    },
-                    child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                    color: Color(0xff1aa260),
-                    borderRadius: BorderRadius.circular(12)
-                    ),
-                    child: Center(
-                    child: Text('Track Countries'),
-                    ),
-                    ),
-
-
-
-                      )
 
 
                     ],
